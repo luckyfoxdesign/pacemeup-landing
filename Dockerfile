@@ -3,7 +3,17 @@ FROM node:20-alpine AS development
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN npm ci
+ARG TARGETARCH
+RUN set -eu; \
+    npm ci; \
+    rollup_version="$(node -p "require('rollup/package.json').version")"; \
+    case "$TARGETARCH" in \
+      amd64) rollup_arch="x64" ;; \
+      arm64) rollup_arch="arm64" ;; \
+      *) echo "Unsupported architecture: $TARGETARCH" >&2; exit 1 ;; \
+    esac; \
+    npm install --no-save --package-lock=false \
+      "@rollup/rollup-linux-${rollup_arch}-musl@${rollup_version}"
 
 COPY . .
 
