@@ -1,0 +1,18 @@
+---
+import { BOT_INVITE_URL } from '../config';
+---
+
+<header class="sticky top-0 z-50 border-b border-border bg-base/90 backdrop-blur">
+  <nav class="section flex h-16 items-center justify-between">
+    <a href="#top" class="wordmark">Pace me up</a>
+
+    <div class="flex items-center gap-5">
+      <a href="#engine" class="nav-link hidden sm:inline">engine</a>
+      <a href="#coach" class="nav-link hidden sm:inline">coach</a>
+      <a href="#pricing" class="nav-link hidden sm:inline">pricing</a>
+      <a href={BOT_INVITE_URL} class="btn-volt text-sm py-2" rel="noopener" target="_blank">
+        Get invite
+      </a>
+    </div>
+  </nav>
+</header>

@@ -1,0 +1,23 @@
+---
+const phrases = [
+  'Bad sleep is training data',
+  'Adaptation beats discipline theater',
+  'Know the limiter. Train the gap.',
+  'A training plan with memory',
+  'Your calendar is part of your physiology',
+  'Missed sessions update the plan, not break it',
+];
+// дублируем для бесшовной петли
+const loop = [...phrases, ...phrases];
+---
+
+<div class="overflow-hidden border-y border-text bg-volt py-4">
+  <div class="marquee-track flex w-max items-center gap-8 whitespace-nowrap">
+    {loop.map((p) => (
+      <span class="flex items-center gap-8">
+        <span class="font-hero text-xl uppercase text-text sm:text-2xl">{p}</span>
+        <span class="text-text/40">●</span>
+      </span>
+    ))}
+  </div>
+</div>

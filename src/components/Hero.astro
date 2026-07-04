@@ -1,0 +1,152 @@
+---
+import { BOT_INVITE_URL } from '../config';
+---
+
+<section id="top" class="relative overflow-hidden">
+  <!-- texture layers -->
+  <div class="pointer-events-none absolute inset-0 bg-grid"></div>
+  <div class="pointer-events-none absolute inset-x-0 top-0 h-2 bg-volt"></div>
+
+  <div class="section hero-shell relative">
+    <div class="hero-stage">
+      <div class="reveal hero-headline" style="animation-delay:.06s">
+        <h1 class="hero-statement">Today’s workout. With a reason.</h1>
+      </div>
+
+      <div class="reveal hero-copy" style="animation-delay:.12s">
+        <p class="mx-auto mt-5 max-w-lg text-lg leading-relaxed text-muted">
+          Pace me up turns sleep, calendar and your last run into one clear decision:
+          <span class="volt-mark font-medium text-text">what to do today and why.</span>
+        </p>
+
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
+          <a href={BOT_INVITE_URL} class="btn-primary" rel="noopener" target="_blank">
+            Request an invite →
+          </a>
+          <a href="#engine" class="label-mono hover:text-text">see how it works</a>
+        </div>
+      </div>
+
+      <!-- Proof: layered live cockpit -->
+      <div class="reveal hero-cockpit" style="animation-delay:.08s">
+        <div id="cockpit" class="decision-object">
+          <div class="object-topline">
+            <span>today / decision engine</span>
+            <strong><span class="dot-live inline-block h-2 w-2 rounded-full bg-volt"></span> live</strong>
+          </div>
+
+          <div class="decision-slab">
+            <p>decision</p>
+            <strong id="c-decision" class="val-flip">easy / 35 min</strong>
+            <span id="c-why" class="val-flip">recovery is the limiter today.</span>
+          </div>
+
+          <div class="signal-cloud" aria-label="live training signals">
+            <div class="signal-chip signal-sleep">
+              <span>sleep</span>
+              <strong id="c-sleep" class="val-flip">5h 42m</strong>
+            </div>
+
+            <div class="signal-chip signal-hrv">
+              <span>recovery</span>
+              <strong id="c-hrv" class="val-flip text-strain">down</strong>
+            </div>
+
+            <div class="signal-chip signal-calendar">
+              <span>calendar</span>
+              <strong id="c-cal" class="val-flip text-sync">45 min open</strong>
+            </div>
+
+            <div class="signal-chip signal-last">
+              <span>previous</span>
+              <strong id="c-last" class="val-flip">threshold</strong>
+            </div>
+          </div>
+
+          <div class="signal-bottom">
+            <div class="mini-radar" aria-hidden="true">
+              <svg viewBox="0 0 150 150" role="img" aria-label="limiter radar">
+                <polygon points="75,10 135,54 112,126 38,126 15,54" fill="none" stroke="rgba(244,241,233,.2)" />
+                <polygon points="75,30 106,58 103,99 48,112 34,60" fill="#C7FF2E" />
+                <line x1="75" y1="10" x2="75" y2="126" stroke="rgba(244,241,233,.12)" />
+                <line x1="15" y1="54" x2="112" y2="126" stroke="rgba(244,241,233,.12)" />
+                <line x1="135" y1="54" x2="38" y2="126" stroke="rgba(244,241,233,.12)" />
+                <circle cx="75" cy="75" r="4" fill="#0B0D0C" />
+              </svg>
+            </div>
+
+            <div class="wave-card">
+              <p id="c-wave-label" class="val-flip">recovery trace</p>
+              <div class="overflow-hidden">
+                <svg class="wave-track h-12 w-[200%]" viewBox="0 0 400 40" preserveAspectRatio="none" aria-hidden="true">
+                <path id="c-wave"
+                  d="M0,22 C24,14 36,14 58,22 C82,30 96,30 120,22 C144,14 158,14 182,22 C206,30 220,30 244,22 C268,14 282,14 306,22 C330,30 344,30 368,22 C382,18 392,18 400,22"
+                  fill="none" stroke="#C7FF2E" stroke-width="1.5" stroke-opacity="0.85"
+                />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce) {
+    const states = [
+      {
+        sleep: '5h 42m',
+        hrv: 'low',
+        hrvClass: 'val-flip text-strain',
+        cal: '45 min open',
+        last: 'threshold',
+        decision: 'easy / 35 min',
+        why: 'recovery is the limiter today.',
+        wave: 'M0,22 C24,14 36,14 58,22 C82,30 96,30 120,22 C144,14 158,14 182,22 C206,30 220,30 244,22 C268,14 282,14 306,22 C330,30 344,30 368,22 C382,18 392,18 400,22',
+        waveLabel: 'recovery trace',
+      },
+      {
+        sleep: '7h 58m',
+        hrv: 'ready',
+        hrvClass: 'val-flip text-volt',
+        cal: '75 min open',
+        last: 'easy',
+        decision: 'tempo / 50 min',
+        why: 'base is ready to build.',
+        wave: 'M0,27 C14,10 28,10 42,27 C56,34 70,34 84,27 C98,10 112,10 126,27 C140,34 154,34 168,27 C182,10 196,10 210,27 C224,34 238,34 252,27 C266,10 280,10 294,27 C308,34 322,34 336,27 C350,10 364,10 378,27 C386,31 394,31 400,27',
+        waveLabel: 'tempo trace',
+      },
+      {
+        sleep: '6h 30m',
+        hrv: 'steady',
+        hrvClass: 'val-flip text-sync',
+        cal: '25 min gap',
+        last: 'long run',
+        decision: 'mobility / 20 min',
+        why: 'calendar is tight. keep it short.',
+        wave: 'M0,24 C34,24 42,18 66,18 C92,18 98,28 126,28 C156,28 160,16 190,16 C220,16 226,26 256,26 C286,26 292,20 320,20 C348,20 360,24 400,24',
+        waveLabel: 'short-window trace',
+      },
+    ];
+    const el = (id: string) => document.getElementById(id);
+    let i = 0;
+
+    setInterval(() => {
+      i = (i + 1) % states.length;
+      const s = states[i];
+      el('c-sleep')!.textContent = s.sleep;
+      const hrv = el('c-hrv')!;
+      hrv.textContent = s.hrv;
+      hrv.className = s.hrvClass;
+      el('c-cal')!.textContent = s.cal;
+      el('c-last')!.textContent = s.last;
+      el('c-decision')!.textContent = s.decision;
+      el('c-why')!.textContent = s.why;
+      el('c-wave-label')!.textContent = s.waveLabel;
+      el('c-wave')!.setAttribute('d', s.wave);
+    }, 3600);
+  }
+</script>
